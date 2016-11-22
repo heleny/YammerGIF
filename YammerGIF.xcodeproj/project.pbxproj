@@ -1,0 +1,599 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52E2F454F6DA6415A21AB0CB /* libPods-YammerGIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF4B970A7494C1FB1B34AE8E /* libPods-YammerGIF.a */; };
+		791CA06E1DDB97DB00B0E27C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA06D1DDB97DB00B0E27C /* main.m */; };
+		791CA0711DDB97DB00B0E27C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA0701DDB97DB00B0E27C /* AppDelegate.m */; };
+		791CA0741DDB97DB00B0E27C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA0731DDB97DB00B0E27C /* ViewController.m */; };
+		791CA0771DDB97DB00B0E27C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791CA0751DDB97DB00B0E27C /* Main.storyboard */; };
+		791CA0791DDB97DB00B0E27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791CA0781DDB97DB00B0E27C /* Assets.xcassets */; };
+		791CA0871DDB97DB00B0E27C /* YammerGIFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA0861DDB97DB00B0E27C /* YammerGIFTests.m */; };
+		791CA0921DDB97DB00B0E27C /* YammerGIFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA0911DDB97DB00B0E27C /* YammerGIFUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		791CA0831DDB97DB00B0E27C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 791CA0611DDB97DB00B0E27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 791CA0681DDB97DB00B0E27C;
+			remoteInfo = YammerGIF;
+		};
+		791CA08E1DDB97DB00B0E27C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 791CA0611DDB97DB00B0E27C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 791CA0681DDB97DB00B0E27C;
+			remoteInfo = YammerGIF;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4516DFACAA36F352267CDC02 /* Pods-YammerGIF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YammerGIF.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YammerGIF/Pods-YammerGIF.debug.xcconfig"; sourceTree = "<group>"; };
+		791CA0691DDB97DB00B0E27C /* YammerGIF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YammerGIF.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		791CA06D1DDB97DB00B0E27C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		791CA06F1DDB97DB00B0E27C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		791CA0701DDB97DB00B0E27C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		791CA0721DDB97DB00B0E27C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		791CA0731DDB97DB00B0E27C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		791CA0761DDB97DB00B0E27C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		791CA0781DDB97DB00B0E27C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		791CA07D1DDB97DB00B0E27C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		791CA0821DDB97DB00B0E27C /* YammerGIFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YammerGIFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		791CA0861DDB97DB00B0E27C /* YammerGIFTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YammerGIFTests.m; sourceTree = "<group>"; };
+		791CA0881DDB97DB00B0E27C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		791CA08D1DDB97DB00B0E27C /* YammerGIFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YammerGIFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		791CA0911DDB97DB00B0E27C /* YammerGIFUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YammerGIFUITests.m; sourceTree = "<group>"; };
+		791CA0931DDB97DB00B0E27C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832291FDE0D685F94630D05B /* Pods-YammerGIF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YammerGIF.release.xcconfig"; path = "Pods/Target Support Files/Pods-YammerGIF/Pods-YammerGIF.release.xcconfig"; sourceTree = "<group>"; };
+		FF4B970A7494C1FB1B34AE8E /* libPods-YammerGIF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YammerGIF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		791CA0661DDB97DB00B0E27C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52E2F454F6DA6415A21AB0CB /* libPods-YammerGIF.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		791CA07F1DDB97DB00B0E27C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		791CA08A1DDB97DB00B0E27C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		791CA0601DDB97DB00B0E27C = {
+			isa = PBXGroup;
+			children = (
+				791CA06B1DDB97DB00B0E27C /* YammerGIF */,
+				791CA0851DDB97DB00B0E27C /* YammerGIFTests */,
+				791CA0901DDB97DB00B0E27C /* YammerGIFUITests */,
+				791CA06A1DDB97DB00B0E27C /* Products */,
+				FE57595D7CCD4BB9195F5D51 /* Pods */,
+				E09363355D8F53C76E6B4CD7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		791CA06A1DDB97DB00B0E27C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				791CA0691DDB97DB00B0E27C /* YammerGIF.app */,
+				791CA0821DDB97DB00B0E27C /* YammerGIFTests.xctest */,
+				791CA08D1DDB97DB00B0E27C /* YammerGIFUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		791CA06B1DDB97DB00B0E27C /* YammerGIF */ = {
+			isa = PBXGroup;
+			children = (
+				791CA06F1DDB97DB00B0E27C /* AppDelegate.h */,
+				791CA0701DDB97DB00B0E27C /* AppDelegate.m */,
+				791CA0721DDB97DB00B0E27C /* ViewController.h */,
+				791CA0731DDB97DB00B0E27C /* ViewController.m */,
+				791CA0751DDB97DB00B0E27C /* Main.storyboard */,
+				791CA0781DDB97DB00B0E27C /* Assets.xcassets */,
+				791CA07D1DDB97DB00B0E27C /* Info.plist */,
+				791CA06C1DDB97DB00B0E27C /* Supporting Files */,
+			);
+			path = YammerGIF;
+			sourceTree = "<group>";
+		};
+		791CA06C1DDB97DB00B0E27C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				791CA06D1DDB97DB00B0E27C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		791CA0851DDB97DB00B0E27C /* YammerGIFTests */ = {
+			isa = PBXGroup;
+			children = (
+				791CA0861DDB97DB00B0E27C /* YammerGIFTests.m */,
+				791CA0881DDB97DB00B0E27C /* Info.plist */,
+			);
+			path = YammerGIFTests;
+			sourceTree = "<group>";
+		};
+		791CA0901DDB97DB00B0E27C /* YammerGIFUITests */ = {
+			isa = PBXGroup;
+			children = (
+				791CA0911DDB97DB00B0E27C /* YammerGIFUITests.m */,
+				791CA0931DDB97DB00B0E27C /* Info.plist */,
+			);
+			path = YammerGIFUITests;
+			sourceTree = "<group>";
+		};
+		E09363355D8F53C76E6B4CD7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF4B970A7494C1FB1B34AE8E /* libPods-YammerGIF.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FE57595D7CCD4BB9195F5D51 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4516DFACAA36F352267CDC02 /* Pods-YammerGIF.debug.xcconfig */,
+				832291FDE0D685F94630D05B /* Pods-YammerGIF.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		791CA0681DDB97DB00B0E27C /* YammerGIF */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 791CA0961DDB97DB00B0E27C /* Build configuration list for PBXNativeTarget "YammerGIF" */;
+			buildPhases = (
+				91216197488882C42E1191E3 /* [CP] Check Pods Manifest.lock */,
+				791CA0651DDB97DB00B0E27C /* Sources */,
+				791CA0661DDB97DB00B0E27C /* Frameworks */,
+				791CA0671DDB97DB00B0E27C /* Resources */,
+				E3574AE4BF8723C25AF53FA1 /* [CP] Embed Pods Frameworks */,
+				8F5E20840C42939103E6B287 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YammerGIF;
+			productName = YammerGIF;
+			productReference = 791CA0691DDB97DB00B0E27C /* YammerGIF.app */;
+			productType = "com.apple.product-type.application";
+		};
+		791CA0811DDB97DB00B0E27C /* YammerGIFTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 791CA0991DDB97DB00B0E27C /* Build configuration list for PBXNativeTarget "YammerGIFTests" */;
+			buildPhases = (
+				791CA07E1DDB97DB00B0E27C /* Sources */,
+				791CA07F1DDB97DB00B0E27C /* Frameworks */,
+				791CA0801DDB97DB00B0E27C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				791CA0841DDB97DB00B0E27C /* PBXTargetDependency */,
+			);
+			name = YammerGIFTests;
+			productName = YammerGIFTests;
+			productReference = 791CA0821DDB97DB00B0E27C /* YammerGIFTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		791CA08C1DDB97DB00B0E27C /* YammerGIFUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 791CA09C1DDB97DB00B0E27C /* Build configuration list for PBXNativeTarget "YammerGIFUITests" */;
+			buildPhases = (
+				791CA0891DDB97DB00B0E27C /* Sources */,
+				791CA08A1DDB97DB00B0E27C /* Frameworks */,
+				791CA08B1DDB97DB00B0E27C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				791CA08F1DDB97DB00B0E27C /* PBXTargetDependency */,
+			);
+			name = YammerGIFUITests;
+			productName = YammerGIFUITests;
+			productReference = 791CA08D1DDB97DB00B0E27C /* YammerGIFUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		791CA0611DDB97DB00B0E27C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = Heleny;
+				TargetAttributes = {
+					791CA0681DDB97DB00B0E27C = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = A33493T444;
+						ProvisioningStyle = Automatic;
+					};
+					791CA0811DDB97DB00B0E27C = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 791CA0681DDB97DB00B0E27C;
+					};
+					791CA08C1DDB97DB00B0E27C = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 791CA0681DDB97DB00B0E27C;
+					};
+				};
+			};
+			buildConfigurationList = 791CA0641DDB97DB00B0E27C /* Build configuration list for PBXProject "YammerGIF" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 791CA0601DDB97DB00B0E27C;
+			productRefGroup = 791CA06A1DDB97DB00B0E27C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				791CA0681DDB97DB00B0E27C /* YammerGIF */,
+				791CA0811DDB97DB00B0E27C /* YammerGIFTests */,
+				791CA08C1DDB97DB00B0E27C /* YammerGIFUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		791CA0671DDB97DB00B0E27C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				791CA0791DDB97DB00B0E27C /* Assets.xcassets in Resources */,
+				791CA0771DDB97DB00B0E27C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		791CA0801DDB97DB00B0E27C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		791CA08B1DDB97DB00B0E27C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8F5E20840C42939103E6B287 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YammerGIF/Pods-YammerGIF-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91216197488882C42E1191E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E3574AE4BF8723C25AF53FA1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YammerGIF/Pods-YammerGIF-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		791CA0651DDB97DB00B0E27C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				791CA0741DDB97DB00B0E27C /* ViewController.m in Sources */,
+				791CA0711DDB97DB00B0E27C /* AppDelegate.m in Sources */,
+				791CA06E1DDB97DB00B0E27C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		791CA07E1DDB97DB00B0E27C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				791CA0871DDB97DB00B0E27C /* YammerGIFTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		791CA0891DDB97DB00B0E27C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				791CA0921DDB97DB00B0E27C /* YammerGIFUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		791CA0841DDB97DB00B0E27C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 791CA0681DDB97DB00B0E27C /* YammerGIF */;
+			targetProxy = 791CA0831DDB97DB00B0E27C /* PBXContainerItemProxy */;
+		};
+		791CA08F1DDB97DB00B0E27C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 791CA0681DDB97DB00B0E27C /* YammerGIF */;
+			targetProxy = 791CA08E1DDB97DB00B0E27C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		791CA0751DDB97DB00B0E27C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				791CA0761DDB97DB00B0E27C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		791CA0941DDB97DB00B0E27C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		791CA0951DDB97DB00B0E27C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		791CA0971DDB97DB00B0E27C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4516DFACAA36F352267CDC02 /* Pods-YammerGIF.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = A33493T444;
+				INFOPLIST_FILE = YammerGIF/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = heleny.io.YammerGIF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		791CA0981DDB97DB00B0E27C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 832291FDE0D685F94630D05B /* Pods-YammerGIF.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = A33493T444;
+				INFOPLIST_FILE = YammerGIF/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = heleny.io.YammerGIF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		791CA09A1DDB97DB00B0E27C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = YammerGIFTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = heleny.io.YammerGIFTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YammerGIF.app/YammerGIF";
+			};
+			name = Debug;
+		};
+		791CA09B1DDB97DB00B0E27C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = YammerGIFTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = heleny.io.YammerGIFTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YammerGIF.app/YammerGIF";
+			};
+			name = Release;
+		};
+		791CA09D1DDB97DB00B0E27C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = YammerGIFUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = heleny.io.YammerGIFUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = YammerGIF;
+			};
+			name = Debug;
+		};
+		791CA09E1DDB97DB00B0E27C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = YammerGIFUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = heleny.io.YammerGIFUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = YammerGIF;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		791CA0641DDB97DB00B0E27C /* Build configuration list for PBXProject "YammerGIF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				791CA0941DDB97DB00B0E27C /* Debug */,
+				791CA0951DDB97DB00B0E27C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		791CA0961DDB97DB00B0E27C /* Build configuration list for PBXNativeTarget "YammerGIF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				791CA0971DDB97DB00B0E27C /* Debug */,
+				791CA0981DDB97DB00B0E27C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		791CA0991DDB97DB00B0E27C /* Build configuration list for PBXNativeTarget "YammerGIFTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				791CA09A1DDB97DB00B0E27C /* Debug */,
+				791CA09B1DDB97DB00B0E27C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		791CA09C1DDB97DB00B0E27C /* Build configuration list for PBXNativeTarget "YammerGIFUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				791CA09D1DDB97DB00B0E27C /* Debug */,
+				791CA09E1DDB97DB00B0E27C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 791CA0611DDB97DB00B0E27C /* Project object */;
+}
