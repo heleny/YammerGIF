@@ -116,7 +116,8 @@
 }
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    if (!self.browser.gridIsOn && index < self.photos.count) {
+    if (!self.browser.triggerOnce && index < self.photos.count) {
+        NSLog(@"photoAtIndex index=%lu", index);
         return [self.photos objectAtIndex:index];
     }
     
@@ -126,6 +127,7 @@
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
     if (index < self.photos.count) {
+        NSLog(@"thumbPhotoAtIndex index=%lu", index);
         return [self.photos objectAtIndex:index];
     }
     
@@ -156,9 +158,7 @@
     if ([notification.name isEqualToString:@"MWPHOTO_LOADING_DID_END_NOTIFICATION"]) {
         id <MWPhoto> photo = [notification object];
         NSLog(@"Successfully done loading");
-        NSLog(@"self.photo = %@", photo);
-        if (photo && photo.underlyingImage) {
-            NSLog(@"self.photo.underlyingImage %@", photo.underlyingImage);
+        if (photo && photo.underlyingImage && !self.browser.triggerOnce) {
             [self.images addObject:photo.underlyingImage];
             [self.browser reloadData];
         }

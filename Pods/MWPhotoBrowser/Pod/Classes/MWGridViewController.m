@@ -172,7 +172,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.browser.triggerOnce = NO;
     [_browser setCurrentPhotoIndex:indexPath.row];
+    self.browser.triggerOnce = YES;
     [_browser hideGrid];
 }
 

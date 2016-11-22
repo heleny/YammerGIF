@@ -10,7 +10,6 @@
 #import "MWPhoto.h"
 #import "MWPhotoProtocol.h"
 #import "MWCaptionView.h"
-#import "MWGridViewController.h"
 
 // Debug Logging
 #if 0 // Set to 1 to enable debug logging
@@ -53,7 +52,8 @@
 @property (nonatomic) BOOL autoPlayOnAppear;
 @property (nonatomic) NSUInteger delayToHideElements;
 @property (nonatomic, readonly) NSUInteger currentIndex;
-@property (nonatomic, assign) BOOL gridIsOn;
+@property (nonatomic) BOOL gridIsON;
+@property (nonatomic) BOOL triggerOnce;
 
 // Customise image selection icons as they are the only icons with a colour tint
 // Icon should be located in the app's main bundle

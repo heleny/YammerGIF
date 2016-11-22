@@ -31,7 +31,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate {
     if ((self = [self init])) {
         _delegate = delegate;
-        [self setCurrentPhotoIndex:0];
 	}
 	return self;
 }
@@ -334,6 +333,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
 	// Super
 	[super viewWillAppear:animated];
+    
     [self layoutVisiblePages];
     
     // Status bar
@@ -631,14 +631,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         [self.view setNeedsLayout];
     }
     
-//    if (_gridController) {
-//        [_gridController.collectionView reloadData];
-//    }
-    
 }
 
 - (NSUInteger)numberOfPhotos {
-    if (_photoCount == NSNotFound || _photoCount == 0) {
+    if (_photoCount == NSNotFound) {
         if ([_delegate respondsToSelector:@selector(numberOfPhotosInPhotoBrowser:)]) {
             _photoCount = [_delegate numberOfPhotosInPhotoBrowser:self];
         } else if (_fixedPhotosArray) {
@@ -957,7 +953,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     // Load adjacent images if needed and the photo is already
     // loaded. Also called after photo has been loaded in background
     id <MWPhoto> currentPhoto = [self photoAtIndex:index];
-    if ([currentPhoto underlyingImage]) {
+    if (!self.triggerOnce && [currentPhoto underlyingImage]) {
         // photo loaded so load ajacent now
         [self loadAdjacentPhotosIfNecessary:currentPhoto];
     }
@@ -1062,9 +1058,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 	NSInteger index = (NSInteger)(floorf(CGRectGetMidX(visibleBounds) / CGRectGetWidth(visibleBounds)));
     if (index < 0) index = 0;
 	if (index > [self numberOfPhotos] - 1) index = [self numberOfPhotos] - 1;
-	NSUInteger previousCurrentPage = _currentPageIndex;
 	_currentPageIndex = index;
-	if (_currentPageIndex != previousCurrentPage) {
+	if (_currentPageIndex != _previousPageIndex && !self.triggerOnce) {
         [self didStartViewingPageAtIndex:index];
     }
 	
@@ -1311,7 +1306,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)showGrid:(BOOL)animated {
-
+    self.gridIsON = YES;
     if (_gridController) return;
     
     // Clear video
@@ -1362,7 +1357,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)hideGrid {
-    self.gridIsOn = NO;
+    self.gridIsON = NO;
     if (!_gridController) return;
     
     // Remember previous content offset
