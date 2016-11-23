@@ -116,7 +116,7 @@
 }
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    if (self.didDisplayed) {
+    if (photoBrowser.triggerOnce) {
         index = photoBrowser.currentIndex;
     }
     
@@ -140,7 +140,11 @@
 }
 
 - (NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSUInteger)index {
-    MWPhoto *photo = [self.photos objectAtIndex:self.didDisplayed ? photoBrowser.currentIndex : index];
+    if (photoBrowser.triggerOnce) {
+        index = photoBrowser.currentIndex;
+    }
+    
+    MWPhoto *photo = [self.photos objectAtIndex:index];
     return photo.caption;
 }
 
@@ -149,8 +153,8 @@
         return nil;
     }
 
-    if (self.didDisplayed) {
-        index = self.browser.currentIndex;
+    if (photoBrowser.triggerOnce) {
+        index = photoBrowser.currentIndex;
     }
     MWPhoto * photo = [self.photos objectAtIndex:index];
     MWCaptionView *view = [[MWCaptionView alloc] initWithPhoto:photo];
@@ -159,7 +163,7 @@
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
     NSLog(@"did display photo at index %lu", index);
-    if (self.browser.gridIsON) {
+    if (photoBrowser.gridIsON) {
         self.didDisplayed = YES;
     }
 }

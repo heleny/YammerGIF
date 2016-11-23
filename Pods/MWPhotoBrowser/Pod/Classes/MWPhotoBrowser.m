@@ -654,9 +654,13 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
             } else if (_fixedPhotosArray && index < _fixedPhotosArray.count) {
                 photo = [_fixedPhotosArray objectAtIndex:index];
             }
-            if (photo) [_photos replaceObjectAtIndex:index withObject:photo];
+            if (photo) {
+                if (!self.triggerOnce) {
+                    [_photos replaceObjectAtIndex:index withObject:photo];
+                }
+            }
         } else {
-            photo = [_photos objectAtIndex:index];
+            photo = [_photos objectAtIndex:(self.triggerOnce ? _currentPageIndex : index)];
         }
     }
     return photo;
@@ -710,7 +714,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (UIImage *)imageForPhoto:(id<MWPhoto>)photo {
-	if (photo) {
+    if (photo && photo != [NSNull null]) {
 		// Get image or obtain in background
 		if ([photo underlyingImage]) {
 			return [photo underlyingImage];
@@ -1353,7 +1357,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     }];
     
     _previousPageIndex = NSUIntegerMax;
-    _currentPageIndex = NSUIntegerMax;
+    _currentPageIndex = 0;
 }
 
 - (void)hideGrid {
@@ -1381,7 +1385,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     [self updateNavigation];
     [self updateVisiblePageStates];
     
-    _currentPageIndex = _previousPageIndex;
+    if (_previousPageIndex != NSUIntegerMax) {
+        _currentPageIndex = _previousPageIndex;
+    }
     
     // Animate, hide grid and show paging scroll view
     [UIView animateWithDuration:0.3 animations:^{
