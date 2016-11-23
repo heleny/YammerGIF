@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSMutableArray *photos;
 @property (nonatomic, strong) MWPhotoBrowser *browser;
+@property (nonatomic) BOOL didDisplayed;
 @end
 
 @implementation ViewController
@@ -92,7 +93,6 @@
     
     [self.browser showNextPhotoAnimated:YES];
     [self.browser showPreviousPhotoAnimated:YES];
-//    [self.browser reloadData];
 }
 
 - (void)initMWPhotos {
@@ -116,6 +116,10 @@
 }
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (self.didDisplayed) {
+        index = photoBrowser.currentIndex;
+    }
+    
     if (index < self.photos.count) {
         NSLog(@"photoAtIndex index=%lu", index);
         return [self.photos objectAtIndex:index];
@@ -128,6 +132,7 @@
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
     if (index < self.photos.count) {
         NSLog(@"thumbPhotoAtIndex index=%lu", index);
+        self.didDisplayed = NO;
         return [self.photos objectAtIndex:index];
     }
     
@@ -135,7 +140,7 @@
 }
 
 - (NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSUInteger)index {
-    MWPhoto *photo = [self.photos objectAtIndex:index];
+    MWPhoto *photo = [self.photos objectAtIndex:self.didDisplayed ? photoBrowser.currentIndex : index];
     return photo.caption;
 }
 
@@ -144,6 +149,9 @@
         return nil;
     }
 
+    if (self.didDisplayed) {
+        index = self.browser.currentIndex;
+    }
     MWPhoto * photo = [self.photos objectAtIndex:index];
     MWCaptionView *view = [[MWCaptionView alloc] initWithPhoto:photo];
     return view;
@@ -151,6 +159,9 @@
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
     NSLog(@"did display photo at index %lu", index);
+    if (self.browser.gridIsON) {
+        self.didDisplayed = YES;
+    }
 }
 
 

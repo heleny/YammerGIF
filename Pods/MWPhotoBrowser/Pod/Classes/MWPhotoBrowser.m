@@ -770,7 +770,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 #pragma mark - Paging
 
 - (void)tilePages {
-	
 	// Calculate which pages should be visible
 	// Ignore padding as paging bounces encroach on that
 	// and lead to false page loads
@@ -800,6 +799,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     while (_recycledPages.count > 2) // Only keep 2 recycled pages
         [_recycledPages removeObject:[_recycledPages anyObject]];
 	
+    
 	// Add missing pages
 	for (NSUInteger index = (NSUInteger)iFirstIndex; index <= (NSUInteger)iLastIndex; index++) {
 		if (![self isDisplayingPageForIndex:index]) {
@@ -1046,7 +1046,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 #pragma mark - UIScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	
     // Checks
 	if (!_viewIsActive || _performingLayout || _rotating) return;
 	
@@ -1062,7 +1061,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 	if (_currentPageIndex != _previousPageIndex && !self.triggerOnce) {
         [self didStartViewingPageAtIndex:index];
     }
-	
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -1354,6 +1352,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         [_gridController didMoveToParentViewController:self];
     }];
     
+    _previousPageIndex = NSUIntegerMax;
+    _currentPageIndex = NSUIntegerMax;
 }
 
 - (void)hideGrid {
@@ -1380,6 +1380,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     // Update
     [self updateNavigation];
     [self updateVisiblePageStates];
+    
+    _currentPageIndex = _previousPageIndex;
     
     // Animate, hide grid and show paging scroll view
     [UIView animateWithDuration:0.3 animations:^{
