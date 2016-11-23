@@ -116,7 +116,7 @@
 }
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
-    if (!self.browser.triggerOnce && index < self.photos.count) {
+    if (index < self.photos.count) {
         NSLog(@"photoAtIndex index=%lu", index);
         return [self.photos objectAtIndex:index];
     }
