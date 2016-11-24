@@ -13,7 +13,6 @@
 @interface ViewController ()
 @property (nonatomic, strong) NSMutableArray *urls;
 @property (nonatomic, strong) NSMutableArray *searchSources;
-@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSMutableArray *photos;
 @property (nonatomic, strong) MWPhotoBrowser *browser;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -28,7 +27,6 @@
     // Do any additional setup after loading the view, typically from a nib.
     // Testing loading data from Giphy
     self.urls = [[NSMutableArray alloc] init];
-    self.images = [[NSMutableArray alloc] init];
     self.photos = [[NSMutableArray array] init];
     self.searchPhotos = [[NSMutableArray array] init];
     self.searchSources = [[NSMutableArray array] init];
@@ -235,7 +233,6 @@
         id <MWPhoto> photo = [notification object];
         NSLog(@"Successfully done loading");
         if (photo && photo.underlyingImage && !self.browser.triggerOnce) {
-            [self.images addObject:photo.underlyingImage];
             if (self.browser.gridIsON) {
                 [self.browser refreshView];
             } else {
@@ -250,11 +247,11 @@
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSLog(@"update search results for search controller");
     NSString *searchText = searchController.searchBar.text;
     if (!searchText || searchText.length == 0) {
         return;
     }
+
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"slug contains[c] %@", searchText];
     self.searchPhotos = [[self.photos filteredArrayUsingPredicate:predicate] copy];
     self.browser.thumbPhotos = self.searchPhotos;
@@ -265,13 +262,7 @@
     NSLog(@"search text = %@", searchText);
 }
 
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
-    NSLog(@"selected scope button index did change");
-    [self updateSearchResultsForSearchController:self.searchController];
-}
-
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"Cancel Search");
     self.browser.thumbPhotos = self.photos;
     [self.browser refreshView];
 }
