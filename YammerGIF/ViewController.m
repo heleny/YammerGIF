@@ -22,14 +22,13 @@
 
 @implementation ViewController
 
+#pragma mark - ViewController lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     // Testing loading data from Giphy
-    self.urls = [[NSMutableArray alloc] init];
-    self.photos = [[NSMutableArray array] init];
-    self.searchPhotos = [[NSMutableArray array] init];
-    self.searchSources = [[NSMutableArray array] init];
+    [self initArrays];
     [self fetchTrendingGIFs];
     [self initMWPhotoBrowser];
     [self initUISearchController];
@@ -43,6 +42,62 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - initialization
+
+- (void)initArrays {
+    self.urls = [[NSMutableArray alloc] init];
+    self.photos = [[NSMutableArray array] init];
+    self.searchPhotos = [[NSMutableArray array] init];
+    self.searchSources = [[NSMutableArray array] init];
+}
+
+- (void)initMWPhotoBrowser {
+    self.title = @"Photo Browser";
+    self.browser.title = @"My Photo Browser";
+    self.browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    self.browser.displayActionButton = NO;
+    self.browser.displayNavArrows = YES;
+    self.browser.displaySelectionButtons = NO;
+    self.browser.zoomPhotosToFill = YES;
+    self.browser.alwaysShowControls = NO;
+    self.browser.enableGrid = YES;
+    self.browser.startOnGrid = NO;
+    self.browser.enableSwipeToDismiss = NO;
+    self.browser.navigationController.navigationBarHidden = YES;
+    [self.browser showNextPhotoAnimated:YES];
+    [self.browser showPreviousPhotoAnimated:YES];
+    self.browser.gridControllerShowAndHideDelegate = self;
+}
+
+- (void)initUISearchController {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+    [self.searchController.searchBar sizeToFit];
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.searchBarStyle = UISearchBarIconResultsList;
+    self.searchController.searchBar.tintColor = [UIColor whiteColor];
+    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.placeholder = @"search gif here";
+    [self.view addSubview:self.browser.view];
+}
+
+- (void)initMWPhotos {
+    for (int i = 0; i < self.urls.count; i++) {
+        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:self.urls[i]]];
+        photo.caption = self.urls[i];
+        photo.slug = self.searchSources[i];
+        [self.photos addObject:photo];
+        [photo loadUnderlyingImageAndNotify];
+    }
 }
 
 - (void)fetchTrendingGIFs {
@@ -86,56 +141,26 @@
     return result;
 }
 
-- (void)initMWPhotoBrowser {
-    self.title = @"Photo Browser";
-    self.browser.title = @"My Photo Browser";
-    self.browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-    self.browser.displayActionButton = NO;
-    self.browser.displayNavArrows = YES;
-    self.browser.displaySelectionButtons = NO;
-    self.browser.zoomPhotosToFill = YES;
-    self.browser.alwaysShowControls = NO;
-    self.browser.enableGrid = YES;
-    self.browser.startOnGrid = NO;
-    self.browser.enableSwipeToDismiss = NO;
-    self.browser.navigationController.navigationBarHidden = YES;
-    [self.browser showNextPhotoAnimated:YES];
-    [self.browser showPreviousPhotoAnimated:YES];
-    self.browser.gridControllerShowAndHideDelegate = self;
-}
-
-- (void)initUISearchController {
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchBar.delegate = self;
-    self.searchController.searchResultsUpdater = self;
-    [self.searchController.searchBar sizeToFit];
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-//    self.definesPresentationContext = YES;
-    self.searchController.searchBar.searchBarStyle = UISearchBarIconResultsList;
-    self.searchController.searchBar.tintColor = [UIColor whiteColor];
-    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
-    self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"search gif here";
-    [self.view addSubview:self.browser.view];
-}
-
-- (void)initMWPhotos {
-    for (int i = 0; i < self.urls.count; i++) {
-        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:self.urls[i]]];
-        photo.caption = self.urls[i];
-        photo.slug = self.searchSources[i];
-        [self.photos addObject:photo];
-        [photo loadUnderlyingImageAndNotify];
+- (void)doneLoadingImage:(NSNotification *)notification {
+    if ([notification.name isEqualToString:@"MWPHOTO_LOADING_DID_END_NOTIFICATION"]) {
+        id <MWPhoto> photo = [notification object];
+        NSLog(@"Successfully done loading");
+        if (photo && photo.underlyingImage && !self.browser.triggerOnce) {
+            if (self.browser.gridIsON) {
+                [self.browser refreshView];
+            } else {
+                [self.browser reloadData];
+            }
+        }
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
-
 #pragma mark - MWPhotoBrowserDelegate
+
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
     if (self.searchController.active) {
         return self.searchPhotos.count;
@@ -190,17 +215,6 @@
     return photo.caption;
 }
 
-- (void)addSearchBar {
-    CGRect frame = self.browser.view.frame;
-    self.browser.view.frame = CGRectMake(frame.origin.x, frame.origin.y + self.searchController.searchBar.frame.size.height, frame.size.width, frame.size.height);
-    [self.view addSubview:self.searchController.searchBar];
-}
-
-- (void)removeSearchBar {
-    [self.searchController.searchBar removeFromSuperview];
-    self.browser.view.frame = [[UIScreen mainScreen] bounds];
-}
-
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
     if (self.searchController.active) {
         if (!self.searchPhotos || self.searchPhotos.count == 0) {
@@ -228,23 +242,7 @@
     }
 }
 
-- (void)doneLoadingImage:(NSNotification *)notification {
-    if ([notification.name isEqualToString:@"MWPHOTO_LOADING_DID_END_NOTIFICATION"]) {
-        id <MWPhoto> photo = [notification object];
-        NSLog(@"Successfully done loading");
-        if (photo && photo.underlyingImage && !self.browser.triggerOnce) {
-            if (self.browser.gridIsON) {
-                [self.browser refreshView];
-            } else {
-                [self.browser reloadData];
-            }
-        }
-    }
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
+#pragma mark - UISearchBarDelegate
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *searchText = searchController.searchBar.text;
@@ -268,12 +266,24 @@
 }
 
 #pragma mark - GridControllerShowAndHideDelegate
+
 - (void)gridControllerDidShow {
     [self addSearchBar];
 }
 
 - (void)gridcontrollerDidHide {
     [self removeSearchBar];
+}
+
+- (void)addSearchBar {
+    CGRect frame = self.browser.view.frame;
+    self.browser.view.frame = CGRectMake(frame.origin.x, frame.origin.y + self.searchController.searchBar.frame.size.height, frame.size.width, frame.size.height);
+    [self.view addSubview:self.searchController.searchBar];
+}
+
+- (void)removeSearchBar {
+    [self.searchController.searchBar removeFromSuperview];
+    self.browser.view.frame = [[UIScreen mainScreen] bounds];
 }
 
 @end
