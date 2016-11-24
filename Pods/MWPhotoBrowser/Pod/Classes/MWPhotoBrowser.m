@@ -642,7 +642,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         }
     }
     if (_photoCount == NSNotFound) _photoCount = 0;
-    return _photoCount;
+    return self.thumbPhotos.count != 0 ? self.thumbPhotos.count : _photoCount;
 }
 
 - (id<MWPhoto>)photoAtIndex:(NSUInteger)index {
