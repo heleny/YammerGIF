@@ -977,9 +977,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 #pragma mark - Frame Calculations
 
 - (CGRect)frameForPagingScrollView {
-    CGRect frame = self.view.bounds;// [[UIScreen mainScreen] bounds];
+    CGRect frame = self.view.bounds;
     frame.origin.x -= PADDING;
     frame.size.width += (2 * PADDING);
+    // with ui search bar
+    // frame.size.height -= 80.0f;
     return CGRectIntegral(frame);
 }
 
@@ -1011,7 +1013,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     CGFloat height = 44;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
         UIInterfaceOrientationIsLandscape(orientation)) height = 32;
-	return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height * 2, self.view.bounds.size.width, height));
+	return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));  // with search bar - height * 2
 }
 
 - (CGRect)frameForCaptionView:(MWCaptionView *)captionView atIndex:(NSUInteger)index {
@@ -1148,10 +1150,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (void)showNextPhotoAnimated:(BOOL)animated {
     [self jumpToPageAtIndex:_currentPageIndex+1 animated:animated];
-}
-
-- (MWGridViewController *)getMyGridViewController {
-    return _gridController;
 }
 
 #pragma mark - Interactions
@@ -1312,6 +1310,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)showGrid:(BOOL)animated {
+    [self.gridControllerShowAndHideDelegate gridControllerDidShow];
     self.gridIsON = YES;
     if (_gridController) return;
     
@@ -1365,6 +1364,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)hideGrid {
+    [self.gridControllerShowAndHideDelegate gridcontrollerDidHide];
     self.gridIsON = NO;
     if (!_gridController) return;
     

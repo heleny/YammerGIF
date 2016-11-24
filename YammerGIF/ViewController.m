@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import <AFNetworking/AFNetworking.h>
-#import "MWGridViewcontroller.h"
 
 @interface ViewController ()
 @property (nonatomic, copy) NSArray *urls;
@@ -89,6 +88,7 @@
     self.browser.navigationController.navigationBarHidden = YES;
     [self.browser showNextPhotoAnimated:YES];
     [self.browser showPreviousPhotoAnimated:YES];
+    self.browser.gridControllerShowAndHideDelegate = self;
 }
 
 - (void)initUISearchController {
@@ -98,19 +98,12 @@
     [self.searchController.searchBar sizeToFit];
     self.searchController.dimsBackgroundDuringPresentation = YES;
     self.definesPresentationContext = YES;
-    MWGridViewController *mwGridViewController = [self.browser getMyGridViewController];
-    UICollectionView *collectionView = [mwGridViewController getMyCollectionView];
     self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchController.searchBar.tintColor = [UIColor whiteColor];
     self.searchController.searchBar.barTintColor = [UIColor brownColor];
     self.searchController.searchBar.delegate = self;
     self.searchController.searchBar.placeholder = @"search gif here";
-
-    CGRect frame = self.browser.view.frame;
-    self.browser.view.frame = CGRectMake(frame.origin.x, frame.origin.y + self.searchController.searchBar.frame.size.height, frame.size.width, frame.size.height);
     [self.view addSubview:self.browser.view];
-    [self.view addSubview:self.searchController.searchBar];
-
 }
 
 - (void)initMWPhotos {
@@ -157,6 +150,7 @@
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
     NSUInteger count = self.searchController.active ? self.searchPhotos.count : self.photos.count;
+    
     if (index < count) {
         NSLog(@"thumbPhotoAtIndex index=%lu", index);
         self.didDisplayed = NO;
@@ -182,6 +176,17 @@
     return photo.caption;
 }
 
+- (void)addSearchBar {
+    CGRect frame = self.browser.view.frame;
+    self.browser.view.frame = CGRectMake(frame.origin.x, frame.origin.y + self.searchController.searchBar.frame.size.height, frame.size.width, frame.size.height);
+    [self.view addSubview:self.searchController.searchBar];
+}
+
+- (void)removeSearchBar {
+    [self.searchController.searchBar removeFromSuperview];
+    self.browser.view.frame = [[UIScreen mainScreen] bounds];
+}
+
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
     if (self.photos.count == 0) {
         return nil;
@@ -204,7 +209,6 @@
         self.didDisplayed = YES;
     }
 }
-
 
 - (void)doneLoadingImage:(NSNotification *)notification {
     if ([notification.name isEqualToString:@"MWPHOTO_LOADING_DID_END_NOTIFICATION"]) {
@@ -245,5 +249,13 @@
     [self updateSearchResultsForSearchController:self.searchController];
 }
 
+#pragma mark - GridControllerShowAndHideDelegate
+- (void)gridControllerDidShow {
+    [self addSearchBar];
+}
+
+- (void)gridcontrollerDidHide {
+    [self removeSearchBar];
+}
 
 @end

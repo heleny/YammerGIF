@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MWPhotoBrowser.h"
 
-@interface ViewController : UIViewController <MWPhotoBrowserDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+@interface ViewController : UIViewController <MWPhotoBrowserDelegate, UISearchBarDelegate, UISearchResultsUpdating, GridControllerShowAndHideDelegate>
 
 
 @end

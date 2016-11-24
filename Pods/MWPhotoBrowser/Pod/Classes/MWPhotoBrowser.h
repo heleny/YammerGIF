@@ -38,10 +38,17 @@
 
 @end
 
+@protocol GridControllerShowAndHideDelegate <NSObject>
+@required
+- (void)gridControllerDidShow;
+- (void)gridcontrollerDidHide;
+@end
+
 @class MWGridViewController;
 
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, weak) id<GridControllerShowAndHideDelegate> gridControllerShowAndHideDelegate;
 @property (nonatomic, weak) IBOutlet id<MWPhotoBrowserDelegate> delegate;
 @property (nonatomic) BOOL zoomPhotosToFill;
 @property (nonatomic) BOOL displayNavArrows;
@@ -75,7 +82,5 @@
 // Navigation
 - (void)showNextPhotoAnimated:(BOOL)animated;
 - (void)showPreviousPhotoAnimated:(BOOL)animated;
-
-- (MWGridViewController *)getMyGridViewController;
 
 @end
