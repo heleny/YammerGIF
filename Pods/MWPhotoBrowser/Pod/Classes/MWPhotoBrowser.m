@@ -78,10 +78,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _visiblePages = [[NSMutableSet alloc] init];
     _recycledPages = [[NSMutableSet alloc] init];
     _photos = [[NSMutableArray alloc] init];
-    _thumbPhotos = [[NSMutableArray alloc] init];
     _currentGridContentOffset = CGPointMake(0, CGFLOAT_MAX);
     _didSavePreviousStateOfNavBar = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.thumbPhotos = [[NSMutableArray alloc] init];
     
     // Listen for MWPhoto notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -112,7 +112,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         }
     }
     // Release thumbs
-    copy = [_thumbPhotos copy];
+    copy = [self.thumbPhotos copy];
     for (id p in copy) {
         if (p != [NSNull null]) {
             [p unloadUnderlyingImage];
@@ -609,10 +609,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     NSUInteger numberOfPhotos = [self numberOfPhotos];
     [self releaseAllUnderlyingPhotos:YES];
     [_photos removeAllObjects];
-    [_thumbPhotos removeAllObjects];
+    [self.thumbPhotos removeAllObjects];
     for (int i = 0; i < numberOfPhotos; i++) {
         [_photos addObject:[NSNull null]];
-        [_thumbPhotos addObject:[NSNull null]];
+        [self.thumbPhotos addObject:[NSNull null]];
     }
 
     // Update current page index
@@ -668,14 +668,14 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (id<MWPhoto>)thumbPhotoAtIndex:(NSUInteger)index {
     id <MWPhoto> photo = nil;
-    if (index < _thumbPhotos.count) {
-        if ([_thumbPhotos objectAtIndex:index] == [NSNull null]) {
+    if (index < self.thumbPhotos.count) {
+        if ([self.thumbPhotos objectAtIndex:index] == [NSNull null]) {
             if ([_delegate respondsToSelector:@selector(photoBrowser:thumbPhotoAtIndex:)]) {
                 photo = [_delegate photoBrowser:self thumbPhotoAtIndex:index];
             }
-            if (photo) [_thumbPhotos replaceObjectAtIndex:index withObject:photo];
+            if (photo) [self.thumbPhotos replaceObjectAtIndex:index withObject:photo];
         } else {
-            photo = [_thumbPhotos objectAtIndex:index];
+            photo = [self.thumbPhotos objectAtIndex:index];
         }
     }
     return photo;
@@ -1676,6 +1676,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         [self.progressHUD hide:YES];
     }
     self.navigationController.navigationBar.userInteractionEnabled = YES;
+}
+
+- (void)refreshView {
+    [_gridController.collectionView reloadData];
 }
 
 @end

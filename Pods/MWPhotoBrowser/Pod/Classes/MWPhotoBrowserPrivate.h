@@ -18,7 +18,6 @@
 	// Data
     NSUInteger _photoCount;
     NSMutableArray *_photos;
-    NSMutableArray *_thumbPhotos;
 	NSArray *_fixedPhotosArray; // Provided via init
 	
 	// Views
