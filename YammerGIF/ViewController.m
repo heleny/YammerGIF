@@ -258,9 +258,16 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"search text = %@", searchText);
+    if (searchText.length == 0) { // empty search text should reset the data to its original data
+        [self resetSearch];
+    }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self resetSearch];
+}
+
+- (void)resetSearch {
     self.browser.thumbPhotos = self.photos;
     [self.browser refreshView];
 }
