@@ -8,9 +8,11 @@
 
 #import "ViewController.h"
 #import <AFNetworking/AFNetworking.h>
+#import "MWPhoto+Extended.h"
 
 @interface ViewController ()
-@property (nonatomic, copy) NSArray *urls;
+@property (nonatomic, strong) NSMutableArray *urls;
+@property (nonatomic, strong) NSMutableArray *searchSources;
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSMutableArray *photos;
 @property (nonatomic, strong) MWPhotoBrowser *browser;
@@ -25,9 +27,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     // Testing loading data from Giphy
-    self.images = [NSMutableArray array];
-    self.photos = [NSMutableArray array];
-    self.searchPhotos = [NSMutableArray array];
+    self.urls = [[NSMutableArray alloc] init];
+    self.images = [[NSMutableArray alloc] init];
+    self.photos = [[NSMutableArray array] init];
+    self.searchPhotos = [[NSMutableArray array] init];
+    self.searchSources = [[NSMutableArray array] init];
     [self fetchTrendingGIFs];
     [self initMWPhotoBrowser];
     [self initUISearchController];
@@ -57,20 +61,31 @@
                 NSDictionary *responseDictionary = responseObject;
                 NSArray *data = responseDictionary[@"data"];
                 NSLog(@"data size = %ld", data.count);
-                NSMutableArray *urls = [NSMutableArray array];
                 for (NSDictionary *dict in data) {
+                    NSString *searchSource = [self constructSearchSource:dict[@"slug"]];
+                    [self.searchSources addObject:searchSource];
                     NSDictionary *imageDict = dict[@"images"];
                     NSDictionary *originalGif = imageDict[@"original"];
-                    [urls addObject:originalGif[@"url"]];
+                    [self.urls addObject:originalGif[@"url"]];
                 }
-                self.urls = urls;
+                
                 [self initMWPhotos];
-                NSLog(@"urls = %@", urls);
+                NSLog(@"urls = %@", self.urls);
             }
         }
     }];
     
     [task resume];
+}
+
+- (NSString *)constructSearchSource:(NSString *)slug {
+    if (!slug || slug.length == 0) {
+        return nil;
+    }
+    
+    NSString *result = [slug stringByReplacingOccurrencesOfString:@"-" withString:@" "];
+    NSLog(@"------ slug: %@", result);
+    return result;
 }
 
 - (void)initMWPhotoBrowser {
@@ -96,20 +111,21 @@
     self.searchController.searchBar.delegate = self;
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
-    self.searchController.dimsBackgroundDuringPresentation = YES;
-    self.definesPresentationContext = YES;
-    self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+//    self.definesPresentationContext = YES;
+    self.searchController.searchBar.searchBarStyle = UISearchBarIconResultsList;
     self.searchController.searchBar.tintColor = [UIColor whiteColor];
-    self.searchController.searchBar.barTintColor = [UIColor brownColor];
+    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
     self.searchController.searchBar.delegate = self;
     self.searchController.searchBar.placeholder = @"search gif here";
     [self.view addSubview:self.browser.view];
 }
 
 - (void)initMWPhotos {
-    for (NSString *url in self.urls) {
-        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:url]];
-        photo.caption = url;
+    for (int i = 0; i < self.urls.count; i++) {
+        MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:self.urls[i]]];
+        photo.caption = self.urls[i];
+        photo.slug = self.searchSources[i];
         [self.photos addObject:photo];
         [photo loadUnderlyingImageAndNotify];
     }
@@ -188,7 +204,11 @@
 }
 
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
-    if (self.photos.count == 0) {
+    if (self.searchController.active) {
+        if (!self.searchPhotos || self.searchPhotos.count == 0) {
+            return nil;
+        }
+    } else if (!self.photos || self.photos.count == 0) {
         return nil;
     }
 
@@ -216,7 +236,11 @@
         NSLog(@"Successfully done loading");
         if (photo && photo.underlyingImage && !self.browser.triggerOnce) {
             [self.images addObject:photo.underlyingImage];
-            [self.browser reloadData];
+            if (self.browser.gridIsON) {
+                [self.browser refreshView];
+            } else {
+                [self.browser reloadData];
+            }
         }
     }
 }
@@ -227,17 +251,14 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSLog(@"update search results for search controller");
-//    NSString *searchText = searchController.searchBar.text;
-//    NSPredicate *predicate;
-//    NSInteger scope = searchController.searchBar.selectedScopeButtonIndex;
-//    if (scope == 0) {
-//        predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
-//    } else {
-//        predicate = [NSPredicate predicateWithFormat:@"description contains[c] %@", searchText];
-//    }
-//    
-//    self.searchPhotos = [[self.photos filteredArrayUsingPredicate:predicate] copy];
-//    [self.browser reloadData];
+    NSString *searchText = searchController.searchBar.text;
+    if (!searchText || searchText.length == 0) {
+        return;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"slug contains[c] %@", searchText];
+    self.searchPhotos = [[self.photos filteredArrayUsingPredicate:predicate] copy];
+    self.browser.thumbPhotos = self.searchPhotos;
+    [self.browser refreshView];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -247,6 +268,12 @@
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
     NSLog(@"selected scope button index did change");
     [self updateSearchResultsForSearchController:self.searchController];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"Cancel Search");
+    self.browser.thumbPhotos = self.photos;
+    [self.browser refreshView];
 }
 
 #pragma mark - GridControllerShowAndHideDelegate

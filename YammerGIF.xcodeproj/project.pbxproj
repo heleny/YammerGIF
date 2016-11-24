@@ -15,6 +15,7 @@
 		791CA0791DDB97DB00B0E27C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791CA0781DDB97DB00B0E27C /* Assets.xcassets */; };
 		791CA0871DDB97DB00B0E27C /* YammerGIFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA0861DDB97DB00B0E27C /* YammerGIFTests.m */; };
 		791CA0921DDB97DB00B0E27C /* YammerGIFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CA0911DDB97DB00B0E27C /* YammerGIFUITests.m */; };
+		79C41CA01DE772C90051F86C /* MWPhoto+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C41C9F1DE772C90051F86C /* MWPhoto+Extended.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		791CA08D1DDB97DB00B0E27C /* YammerGIFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YammerGIFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		791CA0911DDB97DB00B0E27C /* YammerGIFUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YammerGIFUITests.m; sourceTree = "<group>"; };
 		791CA0931DDB97DB00B0E27C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79C41C9E1DE772C90051F86C /* MWPhoto+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWPhoto+Extended.h"; sourceTree = "<group>"; };
+		79C41C9F1DE772C90051F86C /* MWPhoto+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWPhoto+Extended.m"; sourceTree = "<group>"; };
 		832291FDE0D685F94630D05B /* Pods-YammerGIF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YammerGIF.release.xcconfig"; path = "Pods/Target Support Files/Pods-YammerGIF/Pods-YammerGIF.release.xcconfig"; sourceTree = "<group>"; };
 		FF4B970A7494C1FB1B34AE8E /* libPods-YammerGIF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YammerGIF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -114,6 +117,8 @@
 				791CA0781DDB97DB00B0E27C /* Assets.xcassets */,
 				791CA07D1DDB97DB00B0E27C /* Info.plist */,
 				791CA06C1DDB97DB00B0E27C /* Supporting Files */,
+				79C41C9E1DE772C90051F86C /* MWPhoto+Extended.h */,
+				79C41C9F1DE772C90051F86C /* MWPhoto+Extended.m */,
 			);
 			path = YammerGIF;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				791CA0741DDB97DB00B0E27C /* ViewController.m in Sources */,
 				791CA0711DDB97DB00B0E27C /* AppDelegate.m in Sources */,
 				791CA06E1DDB97DB00B0E27C /* main.m in Sources */,
+				79C41CA01DE772C90051F86C /* MWPhoto+Extended.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
