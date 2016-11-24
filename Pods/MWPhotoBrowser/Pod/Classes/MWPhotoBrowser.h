@@ -38,6 +38,8 @@
 
 @end
 
+@class MWGridViewController;
+
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, weak) IBOutlet id<MWPhotoBrowserDelegate> delegate;
@@ -73,5 +75,7 @@
 // Navigation
 - (void)showNextPhotoAnimated:(BOOL)animated;
 - (void)showPreviousPhotoAnimated:(BOOL)animated;
+
+- (MWGridViewController *)getMyGridViewController;
 
 @end

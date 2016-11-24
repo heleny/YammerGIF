@@ -1011,7 +1011,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     CGFloat height = 44;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
         UIInterfaceOrientationIsLandscape(orientation)) height = 32;
-	return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));
+	return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height * 2, self.view.bounds.size.width, height));
 }
 
 - (CGRect)frameForCaptionView:(MWCaptionView *)captionView atIndex:(NSUInteger)index {
@@ -1148,6 +1148,10 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (void)showNextPhotoAnimated:(BOOL)animated {
     [self jumpToPageAtIndex:_currentPageIndex+1 animated:animated];
+}
+
+- (MWGridViewController *)getMyGridViewController {
+    return _gridController;
 }
 
 #pragma mark - Interactions

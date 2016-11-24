@@ -8,12 +8,15 @@
 
 #import "ViewController.h"
 #import <AFNetworking/AFNetworking.h>
+#import "MWGridViewcontroller.h"
 
 @interface ViewController ()
 @property (nonatomic, copy) NSArray *urls;
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSMutableArray *photos;
 @property (nonatomic, strong) MWPhotoBrowser *browser;
+@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) NSMutableArray *searchPhotos;
 @property (nonatomic) BOOL didDisplayed;
 @end
 
@@ -25,8 +28,10 @@
     // Testing loading data from Giphy
     self.images = [NSMutableArray array];
     self.photos = [NSMutableArray array];
+    self.searchPhotos = [NSMutableArray array];
     [self fetchTrendingGIFs];
     [self initMWPhotoBrowser];
+    [self initUISearchController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -37,12 +42,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)saveToFile {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentPath = [paths objectAtIndex:0];
-    NSString *dbFile = [documentPath stringByAppendingPathComponent:@"yammer_gif.xml"];
 }
 
 - (void)fetchTrendingGIFs {
@@ -88,11 +87,30 @@
     self.browser.startOnGrid = NO;
     self.browser.enableSwipeToDismiss = NO;
     self.browser.navigationController.navigationBarHidden = YES;
-    [self.view addSubview:self.browser.view];
-    [self.navigationController pushViewController:self.browser animated:YES];
-    
     [self.browser showNextPhotoAnimated:YES];
     [self.browser showPreviousPhotoAnimated:YES];
+}
+
+- (void)initUISearchController {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+    [self.searchController.searchBar sizeToFit];
+    self.searchController.dimsBackgroundDuringPresentation = YES;
+    self.definesPresentationContext = YES;
+    MWGridViewController *mwGridViewController = [self.browser getMyGridViewController];
+    UICollectionView *collectionView = [mwGridViewController getMyCollectionView];
+    self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchController.searchBar.tintColor = [UIColor whiteColor];
+    self.searchController.searchBar.barTintColor = [UIColor brownColor];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.placeholder = @"search gif here";
+
+    CGRect frame = self.browser.view.frame;
+    self.browser.view.frame = CGRectMake(frame.origin.x, frame.origin.y + self.searchController.searchBar.frame.size.height, frame.size.width, frame.size.height);
+    [self.view addSubview:self.browser.view];
+    [self.view addSubview:self.searchController.searchBar];
+
 }
 
 - (void)initMWPhotos {
@@ -112,6 +130,10 @@
 
 #pragma mark - MWPhotoBrowserDelegate
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    if (self.searchController.active) {
+        return self.searchPhotos.count;
+    }
+
     return self.photos.count;
 }
 
@@ -120,9 +142,13 @@
         index = photoBrowser.currentIndex;
     }
     
-    if (index < self.photos.count) {
+    NSUInteger count = self.searchController.active ? self.searchPhotos.count : self.photos.count;
+    if (index < count) {
         NSLog(@"photoAtIndex index=%lu", index);
-        return [self.photos objectAtIndex:index];
+        if (self.searchController.active) {
+            return self.searchPhotos[index];
+        }
+        return self.photos[index];
     }
     
     return nil;
@@ -130,10 +156,14 @@
 
 
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index {
-    if (index < self.photos.count) {
+    NSUInteger count = self.searchController.active ? self.searchPhotos.count : self.photos.count;
+    if (index < count) {
         NSLog(@"thumbPhotoAtIndex index=%lu", index);
         self.didDisplayed = NO;
-        return [self.photos objectAtIndex:index];
+        if (self.searchController.active) {
+            return self.searchPhotos[index];
+        }
+        return self.photos[index];
     }
     
     return nil;
@@ -144,7 +174,11 @@
         index = photoBrowser.currentIndex;
     }
     
-    MWPhoto *photo = [self.photos objectAtIndex:index];
+    MWPhoto *photo = self.photos[index];
+    if (self.searchController.active) {
+        photo = self.searchPhotos[index];
+    }
+    
     return photo.caption;
 }
 
@@ -156,7 +190,10 @@
     if (photoBrowser.triggerOnce) {
         index = photoBrowser.currentIndex;
     }
-    MWPhoto * photo = [self.photos objectAtIndex:index];
+    MWPhoto *photo = self.photos[index];
+    if (self.searchController.active) {
+        photo = self.searchPhotos[index];
+    }
     MWCaptionView *view = [[MWCaptionView alloc] initWithPhoto:photo];
     return view;
 }
@@ -178,6 +215,34 @@
             [self.browser reloadData];
         }
     }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSLog(@"update search results for search controller");
+//    NSString *searchText = searchController.searchBar.text;
+//    NSPredicate *predicate;
+//    NSInteger scope = searchController.searchBar.selectedScopeButtonIndex;
+//    if (scope == 0) {
+//        predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
+//    } else {
+//        predicate = [NSPredicate predicateWithFormat:@"description contains[c] %@", searchText];
+//    }
+//    
+//    self.searchPhotos = [[self.photos filteredArrayUsingPredicate:predicate] copy];
+//    [self.browser reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSLog(@"search text = %@", searchText);
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    NSLog(@"selected scope button index did change");
+    [self updateSearchResultsForSearchController:self.searchController];
 }
 
 
