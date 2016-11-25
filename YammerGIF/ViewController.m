@@ -177,7 +177,7 @@
     
     NSUInteger count = self.searchController.active ? self.searchPhotos.count : self.photos.count;
     if (index < count) {
-        NSLog(@"photoAtIndex index=%lu", index);
+//        NSLog(@"photoAtIndex index=%lu", index);
         if (self.searchController.active) {
             return self.searchPhotos[index];
         }
@@ -192,7 +192,7 @@
     NSUInteger count = self.searchController.active ? self.searchPhotos.count : self.photos.count;
     
     if (index < count) {
-        NSLog(@"thumbPhotoAtIndex index=%lu", index);
+//        NSLog(@"thumbPhotoAtIndex index=%lu", index);
         self.didDisplayed = NO;
         if (self.searchController.active) {
             return self.searchPhotos[index];
@@ -237,7 +237,7 @@
 }
 
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"did display photo at index %lu", index);
+//    NSLog(@"did display photo at index %lu", index);
     if (photoBrowser.gridIsON) {
         self.didDisplayed = YES;
     }
@@ -258,7 +258,6 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    NSLog(@"search text = %@", searchText);
     if (searchText.length == 0) { // empty search text should reset the data to its original data
         [self resetSearch];
     }
