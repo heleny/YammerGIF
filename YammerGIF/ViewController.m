@@ -26,8 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    // Testing loading data from Giphy
     [self initArrays];
     [self fetchTrendingGIFs];
     [self initMWPhotoBrowser];
@@ -275,20 +273,12 @@
 #pragma mark - GridControllerShowAndHideDelegate
 
 - (void)gridControllerDidShow {
-    [self addSearchBar];
-}
-
-- (void)gridcontrollerDidHide {
-    [self removeSearchBar];
-}
-
-- (void)addSearchBar {
     CGRect frame = self.browser.view.frame;
     self.browser.view.frame = CGRectMake(frame.origin.x, frame.origin.y + self.searchController.searchBar.frame.size.height, frame.size.width, frame.size.height);
     [self.view addSubview:self.searchController.searchBar];
 }
 
-- (void)removeSearchBar {
+- (void)gridcontrollerDidHide {
     [self.searchController.searchBar removeFromSuperview];
     self.browser.view.frame = [[UIScreen mainScreen] bounds];
 }
