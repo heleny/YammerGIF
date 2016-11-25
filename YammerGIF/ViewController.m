@@ -69,8 +69,8 @@
     self.browser.startOnGrid = NO;
     self.browser.enableSwipeToDismiss = NO;
     self.browser.navigationController.navigationBarHidden = YES;
-    [self.browser showNextPhotoAnimated:YES];
-    [self.browser showPreviousPhotoAnimated:YES];
+//    [self.browser showNextPhotoAnimated:YES];
+//    [self.browser showPreviousPhotoAnimated:YES];
     self.browser.gridControllerShowAndHideDelegate = self;
 }
 
@@ -80,10 +80,10 @@
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar sizeToFit];
     self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.searchBarStyle = UISearchBarIconResultsList;
-    self.searchController.searchBar.tintColor = [UIColor whiteColor];
+    self.searchController.searchBar.searchBarStyle = UISearchBarStyleProminent;
+    self.searchController.searchBar.tintColor = [UIColor blackColor];
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor blueColor]];
-    self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
+    self.searchController.searchBar.barTintColor = [UIColor whiteColor];
     self.searchController.searchBar.delegate = self;
     self.searchController.searchBar.placeholder = @"search gif here";
     [self.view addSubview:self.browser.view];

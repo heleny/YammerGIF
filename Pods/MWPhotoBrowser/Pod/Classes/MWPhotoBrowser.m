@@ -906,7 +906,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (void)configurePage:(MWZoomingScrollView *)page forIndex:(NSUInteger)index {
 	page.frame = [self frameForPageAtIndex:index];
-    page.index = index;
+    page.index = self.triggerOnce ? _currentPageIndex : index;
     page.photo = [self photoAtIndex:index];
 }
 
@@ -1407,7 +1407,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
         [tmpGridController removeFromParentViewController];
         [self setControlsHidden:NO animated:YES permanent:NO]; // retrigger timer
     }];
-
+    
+    self.triggerOnce = NO;
 }
 
 #pragma mark - Control Hiding / Showing
@@ -1562,8 +1563,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     _currentPageIndex = index;
 	if ([self isViewLoaded]) {
         [self jumpToPageAtIndex:index animated:NO];
-        if (!_viewIsActive)
-            [self tilePages]; // Force tiling if view is not visible
+//        if (!_viewIsActive)
+        [self tilePages]; // Force tiling if view is not visible
     }
 }
 
