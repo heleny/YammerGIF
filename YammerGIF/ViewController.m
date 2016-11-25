@@ -84,7 +84,7 @@
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.searchBarStyle = UISearchBarIconResultsList;
     self.searchController.searchBar.tintColor = [UIColor whiteColor];
-    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor darkGrayColor]]; // change the cursor's color
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor blueColor]];
     self.searchController.searchBar.barTintColor = [UIColor darkGrayColor];
     self.searchController.searchBar.delegate = self;
     self.searchController.searchBar.placeholder = @"search gif here";
