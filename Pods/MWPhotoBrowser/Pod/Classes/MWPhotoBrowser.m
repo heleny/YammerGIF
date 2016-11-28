@@ -1112,7 +1112,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 	}
 	
 	// Buttons
-	_previousButton.enabled = (_currentPageIndex > 0);
+    _previousButton.enabled = self.triggerOnce && _previousPageIndex != NSUIntegerMax ? _previousPageIndex : (_currentPageIndex > 0);
 	_nextButton.enabled = (_currentPageIndex < numberOfPhotos - 1);
     
     // Disable action button if there is no image or it's a video
