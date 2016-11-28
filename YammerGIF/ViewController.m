@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initArrays];
-    [self fetchTrendingGIFs];
+    [self fetchTrendingGIFs:0];
     [self initMWPhotoBrowser];
     [self initUISearchController];
 }
@@ -97,8 +97,8 @@
     }
 }
 
-- (void)fetchTrendingGIFs {
-    NSString *urlString = @"http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=100";
+- (void)fetchTrendingGIFs:(NSInteger)offset {
+    NSString *urlString = [NSString stringWithFormat:@"http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&offset=%ld&limit=100", offset];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
