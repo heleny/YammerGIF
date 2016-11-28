@@ -98,7 +98,7 @@
 }
 
 - (void)fetchTrendingGIFs {
-    NSString *urlString = @"http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
+    NSString *urlString = @"http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=100";
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
