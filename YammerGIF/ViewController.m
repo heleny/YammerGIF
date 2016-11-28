@@ -69,8 +69,6 @@
     self.browser.startOnGrid = NO;
     self.browser.enableSwipeToDismiss = NO;
     self.browser.navigationController.navigationBarHidden = YES;
-//    [self.browser showNextPhotoAnimated:YES];
-//    [self.browser showPreviousPhotoAnimated:YES];
     self.browser.gridControllerShowAndHideDelegate = self;
 }
 
@@ -85,7 +83,7 @@
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor blueColor]];
     self.searchController.searchBar.barTintColor = [UIColor whiteColor];
     self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"search gif here";
+    self.searchController.searchBar.placeholder = @"search trending gifs";
     [self.view addSubview:self.browser.view];
 }
 
