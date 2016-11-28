@@ -14,5 +14,5 @@ Used open sources:
 
 todo: 
 - offline support, sqlite or core data
-- infinite scrolling, right now it only fetches the first 25 GIFs
+- infinite scrolling, right now it only fetches the first 100 GIFs (not feasible - Giphy API doesn't seem to support fetching the next page)
 - swift version
