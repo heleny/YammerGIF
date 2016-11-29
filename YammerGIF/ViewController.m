@@ -209,7 +209,7 @@
         photo = self.searchPhotos[index];
     }
     
-    return photo.caption;
+    return photo == [NSNull null] ? nil : photo.caption;
 }
 
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
