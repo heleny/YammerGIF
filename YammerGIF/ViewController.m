@@ -51,9 +51,9 @@
 
 - (void)initArrays {
     self.urls = [[NSMutableArray alloc] init];
-    self.photos = [[NSMutableArray array] init];
-    self.searchPhotos = [[NSMutableArray array] init];
-    self.searchSources = [[NSMutableArray array] init];
+    self.photos = [[NSMutableArray alloc] init];
+    self.searchPhotos = [[NSMutableArray alloc] init];
+    self.searchSources = [[NSMutableArray alloc] init];
 }
 
 - (void)initMWPhotoBrowser {
